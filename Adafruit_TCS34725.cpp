@@ -299,3 +299,32 @@ uint16_t Adafruit_TCS34725::calculateLux(uint16_t r, uint16_t g, uint16_t b)
 
   return (uint16_t)illuminance;
 }
+
+
+void Adafruit_TCS34725::setInterrupt(boolean i) {
+  uint8_t r = read8(TCS34725_ENABLE);
+  if (i) {
+    r |= TCS34725_ENABLE_AIEN;
+  } else {
+    r &= ~TCS34725_ENABLE_AIEN;
+  }
+  write8(TCS34725_ENABLE, r);
+}
+
+void Adafruit_TCS34725::clearInterrupt(void) {
+  Wire.beginTransmission(TCS34725_ADDRESS);
+  #if ARDUINO >= 100
+  Wire.write(0x66);
+  #else
+  Wire.send(0x66);
+  #endif
+  Wire.endTransmission();
+}
+
+
+void Adafruit_TCS34725::setIntLimits(uint16_t low, uint16_t high) {
+   write8(0x04, low & 0xFF);
+   write8(0x05, low >> 8);
+   write8(0x06, high & 0xFF);
+   write8(0x07, high >> 8);
+}
