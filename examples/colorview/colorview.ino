@@ -69,10 +69,7 @@ void loop() {
   Serial.print("\tB:\t"); Serial.print(blue);
 
   // Figure out some basic hex code for visualization
-  uint32_t sum = red;
-  sum += green;
-  sum += blue;
-  sum = clear;
+  uint32_t sum = clear;
   float r, g, b;
   r = red; r /= sum;
   g = green; g /= sum;
