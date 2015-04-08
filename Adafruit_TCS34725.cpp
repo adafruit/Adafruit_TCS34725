@@ -16,7 +16,6 @@
 */
 /**************************************************************************/
 #include <avr/pgmspace.h>
-#include <util/delay.h>
 #include <stdlib.h>
 #include <math.h>
 
