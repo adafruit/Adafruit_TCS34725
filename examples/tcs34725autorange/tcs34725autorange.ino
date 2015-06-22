@@ -135,7 +135,7 @@ void tcs34725::getData(void) {
   cratio = float(ir) / float(c);
 
   saturation = ((256 - atime) > 63) ? 65535 : 1024 * (256 - atime);
-  saturation75 = (atime_ms < 150) ? saturation75 = saturation - saturation / 4 : saturation;
+  saturation75 = (atime_ms < 150) ? (saturation - saturation / 4) : saturation;
   isSaturated = (atime_ms < 150 && c > saturation75) ? 1 : 0;
   cpl = (atime_ms * againx) / (TCS34725_GA * TCS34725_DF); 
   maxlux = 65535 / (cpl * 3);
