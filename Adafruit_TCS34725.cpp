@@ -15,7 +15,11 @@
     v1.0 - First release
 */
 /**************************************************************************/
-#include <avr/pgmspace.h>
+#ifdef __AVR
+  #include <avr/pgmspace.h>
+#elif defined(ESP8266)
+  #include <pgmspace.h>
+#endif
 #include <stdlib.h>
 #include <math.h>
 
