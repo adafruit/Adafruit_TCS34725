@@ -319,9 +319,9 @@ void Adafruit_TCS34725::setInterrupt(boolean i) {
 void Adafruit_TCS34725::clearInterrupt(void) {
   Wire.beginTransmission(TCS34725_ADDRESS);
   #if ARDUINO >= 100
-  Wire.write(0x66);
+  Wire.write(TCS34725_COMMAND_BIT | 0x66);
   #else
-  Wire.send(0x66);
+  Wire.send(TCS34725_COMMAND_BIT | 0x66);
   #endif
   Wire.endTransmission();
 }
