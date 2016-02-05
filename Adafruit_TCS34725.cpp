@@ -290,8 +290,7 @@ uint16_t Adafruit_TCS34725::calculateColorTemperature(uint16_t r, uint16_t g, ui
 
 /**************************************************************************/
 /*!
-    @brief  Converts the raw R/G/B values to color temperature in degrees
-            Kelvin
+    @brief  Converts the raw R/G/B values to lux
 */
 /**************************************************************************/
 uint16_t Adafruit_TCS34725::calculateLux(uint16_t r, uint16_t g, uint16_t b)
