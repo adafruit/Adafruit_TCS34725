@@ -11,8 +11,8 @@ import java.awt.Toolkit;
 Serial port;
  
 void setup(){
- size(200,200);
- port = new Serial(this, "COM4", 9600); //remember to replace COM20 with the appropriate serial port on your computer
+ size(500,500);
+ port = new Serial(this, "/dev/cu.usbmodem1411", 9600); // Remember to enter the correct serial port on your computer, something like "/dev/cu.usbmodem1411"
 }
  
  
@@ -34,12 +34,12 @@ void serialEvent(int serial) {
  if(serial != '\n') {
    buff += char(serial);
  } else {
-   //println(buff);
+   println(buff);
    
-   int cRed = buff.indexOf("R");
-   int cGreen = buff.indexOf("G");
-   int cBlue = buff.indexOf("B");
-   int clear = buff.indexOf("C");
+   int cRed = buff.indexOf("R:");
+   int cGreen = buff.indexOf("G:");
+   int cBlue = buff.indexOf("B:");
+   int clear = buff.indexOf("C:");
    if(clear >=0){
      String val = buff.substring(clear+3);
      val = val.split("\t")[0]; 
@@ -48,19 +48,19 @@ void serialEvent(int serial) {
    
    if(cRed >=0){
      String val = buff.substring(cRed+3);
-     val = val.split("\t")[0]; 
+     val = val.split(" ")[0]; 
      wRed = Integer.parseInt(val.trim());
    } else { return; }
    
    if(cGreen >=0) {
      String val = buff.substring(cGreen+3);
-     val = val.split("\t")[0]; 
+     val = val.split(" ")[0]; 
      wGreen = Integer.parseInt(val.trim());
    } else { return; }
    
    if(cBlue >=0) {
      String val = buff.substring(cBlue+3);
-     val = val.split("\t")[0]; 
+     val = val.split(" ")[0]; 
      wBlue = Integer.parseInt(val.trim());
    } else { return; }
    
