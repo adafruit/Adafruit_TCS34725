@@ -282,6 +282,21 @@ void Adafruit_TCS34725::getRawData (uint16_t *r, uint16_t *g, uint16_t *b, uint1
 
 /**************************************************************************/
 /*!
+    @brief  Reads the raw red, green, blue and clear channel values in
+    one-shot mode (e.g., wakes from sleep, takes measurement, enters sleep)
+*/
+/**************************************************************************/
+void Adafruit_TCS34725::getRawDataOneShot (uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c)
+{
+  if (!_tcs34725Initialised) begin();
+
+  enable();
+  getRawData(r, g, b ,c);
+  disable();
+}
+
+/**************************************************************************/
+/*!
     @brief  Converts the raw R/G/B values to color temperature in degrees
             Kelvin
 */
