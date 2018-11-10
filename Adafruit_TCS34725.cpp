@@ -120,6 +120,33 @@ void Adafruit_TCS34725::enable(void)
   write8(TCS34725_ENABLE, TCS34725_ENABLE_PON);
   delay(3);
   write8(TCS34725_ENABLE, TCS34725_ENABLE_PON | TCS34725_ENABLE_AEN);  
+    /* Set a delay for the integration time.
+      This is only necessary in the case where enabling and then 
+      immediately trying to read values back. This is because setting
+      AEN triggers an automatic integration, so if a read RGBC is
+      performed too quickly, the data is not yet valid and all 0's are
+      returned */
+  switch (_tcs34725IntegrationTime)
+  {
+    case TCS34725_INTEGRATIONTIME_2_4MS:
+      delay(3);
+      break;
+    case TCS34725_INTEGRATIONTIME_24MS:
+      delay(24);
+      break;
+    case TCS34725_INTEGRATIONTIME_50MS:
+      delay(50);
+      break;
+    case TCS34725_INTEGRATIONTIME_101MS:
+      delay(101);
+      break;
+    case TCS34725_INTEGRATIONTIME_154MS:
+      delay(154);
+      break;
+    case TCS34725_INTEGRATIONTIME_700MS:
+      delay(700);
+      break;
+  }
 }
 
 /**************************************************************************/
