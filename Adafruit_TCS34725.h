@@ -132,13 +132,13 @@ class Adafruit_TCS34725 {
   void clearInterrupt(void);
   void setIntLimits(uint16_t l, uint16_t h);
   void     enable(void);
+  void     disable(void);
 
  private:
   boolean _tcs34725Initialised;
   tcs34725Gain_t _tcs34725Gain;
   tcs34725IntegrationTime_t _tcs34725IntegrationTime; 
   
-  void     disable(void);
 };
 
 #endif
