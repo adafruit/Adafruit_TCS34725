@@ -123,6 +123,7 @@ class Adafruit_TCS34725 {
   void     setIntegrationTime(tcs34725IntegrationTime_t it);
   void     setGain(tcs34725Gain_t gain);
   void     getRawData(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c);
+  void     getRawDataOneShot(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c);
   uint16_t calculateColorTemperature(uint16_t r, uint16_t g, uint16_t b);
   uint16_t calculateLux(uint16_t r, uint16_t g, uint16_t b);
   void     write8 (uint8_t reg, uint32_t value);
@@ -132,13 +133,13 @@ class Adafruit_TCS34725 {
   void clearInterrupt(void);
   void setIntLimits(uint16_t l, uint16_t h);
   void     enable(void);
+  void     disable(void);
 
  private:
   boolean _tcs34725Initialised;
   tcs34725Gain_t _tcs34725Gain;
   tcs34725IntegrationTime_t _tcs34725IntegrationTime; 
   
-  void     disable(void);
 };
 
 #endif
