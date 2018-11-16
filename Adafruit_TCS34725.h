@@ -1,5 +1,5 @@
 /**************************************************************************/
-/*! 
+/*!
     @file     Adafruit_TCS34725.h
     @author   KTOWN (Adafruit Industries)
 
@@ -118,13 +118,14 @@ tcs34725Gain_t;
 class Adafruit_TCS34725 {
  public:
   Adafruit_TCS34725(tcs34725IntegrationTime_t = TCS34725_INTEGRATIONTIME_2_4MS, tcs34725Gain_t = TCS34725_GAIN_1X);
-  
+
   boolean  begin(void);
   void     setIntegrationTime(tcs34725IntegrationTime_t it);
   void     setGain(tcs34725Gain_t gain);
   void     getRawData(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c);
   void     getRawDataOneShot(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c);
   uint16_t calculateColorTemperature(uint16_t r, uint16_t g, uint16_t b);
+  uint16_t calculateColorTemperature_dn40(uint16_t r, uint16_t g, uint16_t b, uint16_t c);
   uint16_t calculateLux(uint16_t r, uint16_t g, uint16_t b);
   void     write8 (uint8_t reg, uint32_t value);
   uint8_t  read8 (uint8_t reg);
@@ -138,8 +139,8 @@ class Adafruit_TCS34725 {
  private:
   boolean _tcs34725Initialised;
   tcs34725Gain_t _tcs34725Gain;
-  tcs34725IntegrationTime_t _tcs34725IntegrationTime; 
-  
+  tcs34725IntegrationTime_t _tcs34725IntegrationTime;
+
 };
 
 #endif
