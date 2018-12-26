@@ -44,7 +44,7 @@ float powf(const float x, const float y)
     @brief  Writes a register and an 8 bit value over I2C
 */
 /**************************************************************************/
-void Adafruit_TCS34725::write8 (uint8_t reg, uint32_t value)
+void Adafruit_TCS34725::write8(uint8_t reg, uint32_t value)
 {
   Wire.beginTransmission(TCS34725_ADDRESS);
   #if ARDUINO >= 100
@@ -247,7 +247,7 @@ void Adafruit_TCS34725::setGain(tcs34725Gain_t gain)
     @brief  Reads the raw red, green, blue and clear channel values
 */
 /**************************************************************************/
-void Adafruit_TCS34725::getRawData (uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c)
+void Adafruit_TCS34725::getRawData(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c)
 {
   if (!_tcs34725Initialised) begin();
 
@@ -282,11 +282,32 @@ void Adafruit_TCS34725::getRawData (uint16_t *r, uint16_t *g, uint16_t *b, uint1
 
 /**************************************************************************/
 /*!
+    @brief  Read the RGB color detected by the sensor.
+*/
+/**************************************************************************/
+void Adafruit_TCS34725::getRGB(uint8_t *r, uint8_t *g, uint8_t *b)
+{
+  uint16_t clear, red, green, blue;
+  getRawData(&red, &green, &blue, &clear);
+
+  // Avoid divide by zero errors ... if clear = 0 return black
+  if (clear == 0) {
+    *r = *g = *b = 0;
+    return;
+  }
+
+  *r = red * 255 / clear;
+  *g = green * 255 / clear;
+  *b = blue * 255 / clear;
+}
+
+/**************************************************************************/
+/*!
     @brief  Reads the raw red, green, blue and clear channel values in
     one-shot mode (e.g., wakes from sleep, takes measurement, enters sleep)
 */
 /**************************************************************************/
-void Adafruit_TCS34725::getRawDataOneShot (uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c)
+void Adafruit_TCS34725::getRawDataOneShot(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c)
 {
   if (!_tcs34725Initialised) begin();
 

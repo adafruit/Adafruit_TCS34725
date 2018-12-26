@@ -55,13 +55,9 @@ void setup() {
 void loop() {
   uint16_t clear, red, green, blue;
 
-  tcs.setInterrupt(false);      // turn on LED
-
   delay(60);  // takes 50ms to read 
   
   tcs.getRawData(&red, &green, &blue, &clear);
-
-  tcs.setInterrupt(true);  // turn off LED
   
   Serial.print("C:\t"); Serial.print(clear);
   Serial.print("\tR:\t"); Serial.print(red);
@@ -69,17 +65,16 @@ void loop() {
   Serial.print("\tB:\t"); Serial.print(blue);
 
   // Figure out some basic hex code for visualization
-  uint32_t sum = clear;
-  float r, g, b;
-  r = red; r /= sum;
-  g = green; g /= sum;
-  b = blue; b /= sum;
-  r *= 256; g *= 256; b *= 256;
+  delay(60);  // takes 50ms to read
+
+  uint8_t r, g, b;
+  tcs.getRGB(&r, &g, &b);
+
   Serial.print("\t");
   Serial.print((int)r, HEX); Serial.print((int)g, HEX); Serial.print((int)b, HEX);
   Serial.println();
 
-  //Serial.print((int)r ); Serial.print(" "); Serial.print((int)g);Serial.print(" ");  Serial.println((int)b );
+  // Serial.print((int)r ); Serial.print(" "); Serial.print((int)g);Serial.print(" ");  Serial.println((int)b );
 
   analogWrite(redpin, gammatable[(int)r]);
   analogWrite(greenpin, gammatable[(int)g]);
