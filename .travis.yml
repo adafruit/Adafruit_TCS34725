@@ -16,6 +16,7 @@ env:
     - PRETTYNAME="Adafruit TCS34725 Library"
 
 before_install:
+  - rm -rf ./examples_processing # we're not testing processing sketches
   - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
 
 script:
