@@ -1,5 +1,5 @@
 /*!
- *  @file     Adafruit_TCS34725.cpp
+ *  @file Adafruit_TCS34725.cpp
  *
  *  @mainpage Driver for the TCS34725 digital color sensors.
  *
@@ -17,7 +17,7 @@
  *
  *  BSD (see license.txt)
  *
- *  @section  HISTORY
+ *  @section HISTORY
  *
  *  v1.0 - First release
  */

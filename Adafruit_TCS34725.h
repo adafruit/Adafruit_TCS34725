@@ -1,5 +1,5 @@
 /*!
- *  @file     Adafruit_TCS34725.h
+ *  @file Adafruit_TCS34725.h
  *
  *  Software License Agreement (BSD License)
  *
