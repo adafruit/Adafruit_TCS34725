@@ -1,4 +1,4 @@
-# Adafruit TCS34725 Color Sensor Driver #
+# Adafruit TCS34725 Color Sensor Driver [![Build Status](https://travis-ci.org/adafruit/Adafruit_XXXX_Library.svg?branch=master)](https://travis-ci.org/adafruit/Adafruit_XXXX_Library)
 
 This driver is for the Adafruit TCS34725 Breakout.
     ------> http://www.adafruit.com/products/1334
