@@ -28,12 +28,21 @@ void setup() {
     Serial.println("No TCS34725 found ... check your connections");
     while (1); // halt!
   }
-  
+
   // use these three pins to drive an LED
+#if defined(ARDUINO_ARCH_ESP32)
+  ledcAttachPin(redpin, 1);
+  ledcSetup(1, 12000, 8);
+  ledcAttachPin(greenpin, 2);
+  ledcSetup(2, 12000, 8);
+  ledcAttachPin(bluepin, 3);
+  ledcSetup(3, 12000, 8);
+#else
   pinMode(redpin, OUTPUT);
   pinMode(greenpin, OUTPUT);
   pinMode(bluepin, OUTPUT);
-  
+#endif
+
   // thanks PhilB for this gamma table!
   // it helps convert RGB colors to what humans see
   for (int i=0; i<256; i++) {
@@ -41,11 +50,11 @@ void setup() {
     x /= 255;
     x = pow(x, 2.5);
     x *= 255;
-      
+
     if (commonAnode) {
       gammatable[i] = 255 - x;
     } else {
-      gammatable[i] = x;      
+      gammatable[i] = x;
     }
     //Serial.println(gammatable[i]);
   }
@@ -57,12 +66,12 @@ void loop() {
 
   tcs.setInterrupt(false);      // turn on LED
 
-  delay(60);  // takes 50ms to read 
-  
+  delay(60);  // takes 50ms to read
+
   tcs.getRawData(&red, &green, &blue, &clear);
 
   tcs.setInterrupt(true);  // turn off LED
-  
+
   Serial.print("C:\t"); Serial.print(clear);
   Serial.print("\tR:\t"); Serial.print(red);
   Serial.print("\tG:\t"); Serial.print(green);
@@ -81,8 +90,14 @@ void loop() {
 
   //Serial.print((int)r ); Serial.print(" "); Serial.print((int)g);Serial.print(" ");  Serial.println((int)b );
 
+#if defined(ARDUINO_ARCH_ESP32)
+  ledcWrite(1, gammatable[(int)r]);
+  ledcWrite(2, gammatable[(int)g]);
+  ledcWrite(3, gammatable[(int)b]);
+#else
   analogWrite(redpin, gammatable[(int)r]);
   analogWrite(greenpin, gammatable[(int)g]);
   analogWrite(bluepin, gammatable[(int)b]);
+#endif
 }
 
