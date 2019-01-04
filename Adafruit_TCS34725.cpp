@@ -229,13 +229,13 @@ void Adafruit_TCS34725::setGain(tcs34725Gain_t gain) {
 
 /*!
  *  @brief  Reads the raw red, green, blue and clear channel values
- *  @param  r
+ *  @param  *r
  *          Red value
- *  @param  g
+ *  @param  *g
  *          Green value
- *  @param  b
+ *  @param  *b
  *          Blue value
- *  @param  c
+ *  @param  *c
  *          Clear channel value
  */
 void Adafruit_TCS34725::getRawData(uint16_t *r, uint16_t *g, uint16_t *b,
@@ -275,13 +275,13 @@ void Adafruit_TCS34725::getRawData(uint16_t *r, uint16_t *g, uint16_t *b,
  *  @brief  Reads the raw red, green, blue and clear channel values in
  *          one-shot mode (e.g., wakes from sleep, takes measurement, enters
  *          sleep)
- *  @param  r
+ *  @param  *r
  *          Red value
- *  @param  g
+ *  @param  *g
  *          Green value
- *  @param  b
+ *  @param  *b
  *          Blue value
- *  @param  c
+ *  @param  *c
  *          Clear channel value
  */
 void Adafruit_TCS34725::getRawDataOneShot(uint16_t *r, uint16_t *g, uint16_t *b,
