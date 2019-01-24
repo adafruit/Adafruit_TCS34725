@@ -295,6 +295,30 @@ void Adafruit_TCS34725::getRawDataOneShot(uint16_t *r, uint16_t *g, uint16_t *b,
 }
 
 /*!
+ *  @brief  Read the RGB color detected by the sensor.
+ *  @param  *r
+ *          Red value
+ *  @param  *g
+ *          Green value
+ *  @param  *b
+ *          Blue value
+ */
+void Adafruit_TCS34725::getRGB(uint8_t *r, uint8_t *g, uint8_t *b) {
+  uint16_t clear, red, green, blue;
+  getRawData(&red, &green, &blue, &clear);
+
+  // Avoid divide by zero errors ... if clear = 0 return black
+  if (clear == 0) {
+    *r = *g = *b = 0;
+    return;
+  }
+
+  *r = red * 255 / clear;
+  *g = green * 255 / clear;
+  *b = blue * 255 / clear;
+}
+
+/*!
  *  @brief  Converts the raw R/G/B values to color temperature in degrees Kelvin
  *  @param  r
  *          Red value

@@ -77,13 +77,14 @@ void loop() {
   Serial.print("\tG:\t"); Serial.print(green);
   Serial.print("\tB:\t"); Serial.print(blue);
 
+
+
   // Figure out some basic hex code for visualization
-  uint32_t sum = clear;
-  float r, g, b;
-  r = red; r /= sum;
-  g = green; g /= sum;
-  b = blue; b /= sum;
-  r *= 256; g *= 256; b *= 256;
+  delay(60);  // takes 50ms to read
+
+  uint8_t r, g, b;
+  tcs.getRGB(&r, &g, &b);
+
   Serial.print("\t");
   Serial.print((int)r, HEX); Serial.print((int)g, HEX); Serial.print((int)b, HEX);
   Serial.println();
