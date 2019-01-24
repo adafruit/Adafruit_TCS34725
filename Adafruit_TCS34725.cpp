@@ -297,11 +297,11 @@ void Adafruit_TCS34725::getRawDataOneShot(uint16_t *r, uint16_t *g, uint16_t *b,
 /*!
  *  @brief  Read the RGB color detected by the sensor.
  *  @param  *r
- *          Red value
+ *          Red value normalized to 0-255
  *  @param  *g
- *          Green value
+ *          Green value normalized to 0-255
  *  @param  *b
- *          Blue value
+ *          Blue value normalized to 0-255
  */
 void Adafruit_TCS34725::getRGB(uint8_t *r, uint8_t *g, uint8_t *b) {
   uint16_t clear, red, green, blue;
