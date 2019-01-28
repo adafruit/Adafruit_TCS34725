@@ -174,6 +174,7 @@ public:
   void setIntegrationTime(tcs34725IntegrationTime_t it);
   void setGain(tcs34725Gain_t gain);
   void getRawData(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c);
+  void getRGB(float *r, float *g, float *b);
   void getRawDataOneShot(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c);
   uint16_t calculateColorTemperature(uint16_t r, uint16_t g, uint16_t b);
   uint16_t calculateColorTemperature_dn40(uint16_t r, uint16_t g, uint16_t b,
