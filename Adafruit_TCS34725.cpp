@@ -314,15 +314,9 @@ void Adafruit_TCS34725::getRGB(float *r, float *g, float *b) {
     return;
   }
 
-  *r = red;
-  *r /= sum;
-  *g = green;
-  *g /= sum;
-  *b = blue;
-  *b /= sum;
-  *r *= 255;
-  *g *= 255;
-  *b *= 255;
+  *r = (float)red / sum * 255.0;
+  *g = (float)green / sum * 255.0;
+  *b = (float)blue / sum * 255.0;
 }
 
 /*!
