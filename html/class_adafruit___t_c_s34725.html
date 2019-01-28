@@ -88,6 +88,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abd9946a9baab1e0c76248cfe1864ea27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___t_c_s34725.html#abd9946a9baab1e0c76248cfe1864ea27">getRawData</a> (uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c)</td></tr>
 <tr class="memdesc:abd9946a9baab1e0c76248cfe1864ea27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the raw red, green, blue and clear channel values.  <a href="#abd9946a9baab1e0c76248cfe1864ea27">More...</a><br /></td></tr>
 <tr class="separator:abd9946a9baab1e0c76248cfe1864ea27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00117af3b2ae21c8597e1e72d9171fe1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___t_c_s34725.html#a00117af3b2ae21c8597e1e72d9171fe1">getRGB</a> (float *r, float *g, float *b)</td></tr>
+<tr class="memdesc:a00117af3b2ae21c8597e1e72d9171fe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the RGB color detected by the sensor.  <a href="#a00117af3b2ae21c8597e1e72d9171fe1">More...</a><br /></td></tr>
+<tr class="separator:a00117af3b2ae21c8597e1e72d9171fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25e1eb0a66a2b0a5948ab4eac4ccb4c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___t_c_s34725.html#a25e1eb0a66a2b0a5948ab4eac4ccb4c9">getRawDataOneShot</a> (uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c)</td></tr>
 <tr class="memdesc:a25e1eb0a66a2b0a5948ab4eac4ccb4c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the raw red, green, blue and clear channel values in one-shot mode (e.g., wakes from sleep, takes measurement, enters sleep)  <a href="#a25e1eb0a66a2b0a5948ab4eac4ccb4c9">More...</a><br /></td></tr>
 <tr class="separator:a25e1eb0a66a2b0a5948ab4eac4ccb4c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -286,6 +289,50 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
     <tr><td class="paramname">*g</td><td>Green value </td></tr>
     <tr><td class="paramname">*b</td><td>Blue value </td></tr>
     <tr><td class="paramname">*c</td><td>Clear channel value </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a00117af3b2ae21c8597e1e72d9171fe1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00117af3b2ae21c8597e1e72d9171fe1">&#9670;&nbsp;</a></span>getRGB()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Adafruit_TCS34725::getRGB </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>g</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read the RGB color detected by the sensor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*r</td><td>Red value normalized to 0-255 </td></tr>
+    <tr><td class="paramname">*g</td><td>Green value normalized to 0-255 </td></tr>
+    <tr><td class="paramname">*b</td><td>Blue value normalized to 0-255 </td></tr>
   </table>
   </dd>
 </dl>
