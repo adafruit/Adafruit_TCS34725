@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['powf',['powf',['../_adafruit___t_c_s34725_8cpp.html#af1ff3aa3979ec4a3374156924ca49892',1,'Adafruit_TCS34725.cpp']]]
+  ['init',['init',['../class_adafruit___t_c_s34725.html#a040d24cd2ddd903180afedf3fe250f45',1,'Adafruit_TCS34725']]]
 ];
