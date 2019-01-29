@@ -174,6 +174,10 @@ Adafruit_TCS34725::Adafruit_TCS34725(tcs34725IntegrationTime_t it,
 
 /*!
  *  @brief  Initializes I2C and configures the sensor
+ *  @param  addr
+ *          i2c address
+ *  @param  *theWire
+ *          The Wire object
  *  @return True if initialization was successful, otherwise false.
  */
 boolean Adafruit_TCS34725::begin(uint8_t addr = TCS34725_ADDRESS,
