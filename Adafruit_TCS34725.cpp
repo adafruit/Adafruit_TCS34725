@@ -28,7 +28,6 @@
 #endif
 #include <math.h>
 #include <stdlib.h>
-#include <Wire.h>
 
 #include "Adafruit_TCS34725.h"
 
@@ -176,15 +175,46 @@ Adafruit_TCS34725::Adafruit_TCS34725(tcs34725IntegrationTime_t it,
  *  @brief  Initializes I2C and configures the sensor
  *  @param  addr
  *          i2c address
+ *  @return True if initialization was successful, otherwise false.
+ */
+boolean Adafruit_TCS34725::begin(uint8_t addr) {
+  _i2caddr = addr;
+  _wire = &Wire;
+
+  return init();
+}
+
+/*!
+ *  @brief  Initializes I2C and configures the sensor
+ *  @param  addr
+ *          i2c address
  *  @param  *theWire
  *          The Wire object
  *  @return True if initialization was successful, otherwise false.
  */
-boolean Adafruit_TCS34725::begin(uint8_t addr = TCS34725_ADDRESS,
-                                 TwoWire *theWire = &Wire) {
-  _wire = theWire;
+boolean Adafruit_TCS34725::begin(uint8_t addr, TwoWire *theWire) {
   _i2caddr = addr;
+  _wire = theWire;
 
+  return init();
+}
+
+/*!
+ *  @brief  Initializes I2C and configures the sensor
+ *  @return True if initialization was successful, otherwise false.
+ */
+boolean Adafruit_TCS34725::begin() {
+  _i2caddr = TCS34725_ADDRESS;
+  _wire = &Wire;
+
+  return init();
+}
+
+/*!
+ *  @brief  Part of begin
+ *  @return True if initialization was successful, otherwise false.
+ */
+boolean Adafruit_TCS34725::init() {
   _wire->begin();
 
   /* Make sure we're actually connected */
