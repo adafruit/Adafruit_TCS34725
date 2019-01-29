@@ -49,15 +49,15 @@ float powf(const float x, const float y) {
  *  @param  value
  */
 void Adafruit_TCS34725::write8(uint8_t reg, uint32_t value) {
-  Wire.beginTransmission(TCS34725_ADDRESS);
+  _wire->beginTransmission(_i2caddr);
 #if ARDUINO >= 100
-  Wire.write(TCS34725_COMMAND_BIT | reg);
-  Wire.write(value & 0xFF);
+  _wire->write(TCS34725_COMMAND_BIT | reg);
+  _wire->write(value & 0xFF);
 #else
-  Wire.send(TCS34725_COMMAND_BIT | reg);
-  Wire.send(value & 0xFF);
+  _wire->send(TCS34725_COMMAND_BIT | reg);
+  _wire->send(value & 0xFF);
 #endif
-  Wire.endTransmission();
+  _wire->endTransmission();
 }
 
 /*!
@@ -66,19 +66,19 @@ void Adafruit_TCS34725::write8(uint8_t reg, uint32_t value) {
  *  @return value
  */
 uint8_t Adafruit_TCS34725::read8(uint8_t reg) {
-  Wire.beginTransmission(TCS34725_ADDRESS);
+  _wire->beginTransmission(_i2caddr);
 #if ARDUINO >= 100
-  Wire.write(TCS34725_COMMAND_BIT | reg);
+  _wire->write(TCS34725_COMMAND_BIT | reg);
 #else
-  Wire.send(TCS34725_COMMAND_BIT | reg);
+  _wire->send(TCS34725_COMMAND_BIT | reg);
 #endif
-  Wire.endTransmission();
+  _wire->endTransmission();
 
-  Wire.requestFrom(TCS34725_ADDRESS, 1);
+  _wire->requestFrom(_i2caddr, 1);
 #if ARDUINO >= 100
-  return Wire.read();
+  return _wire->read();
 #else
-  return Wire.receive();
+  return _wire->receive();
 #endif
 }
 
@@ -91,21 +91,21 @@ uint16_t Adafruit_TCS34725::read16(uint8_t reg) {
   uint16_t x;
   uint16_t t;
 
-  Wire.beginTransmission(TCS34725_ADDRESS);
+  _wire->beginTransmission(_i2caddr);
 #if ARDUINO >= 100
-  Wire.write(TCS34725_COMMAND_BIT | reg);
+  _wire->write(TCS34725_COMMAND_BIT | reg);
 #else
-  Wire.send(TCS34725_COMMAND_BIT | reg);
+  _wire->send(TCS34725_COMMAND_BIT | reg);
 #endif
-  Wire.endTransmission();
+  _wire->endTransmission();
 
-  Wire.requestFrom(TCS34725_ADDRESS, 2);
+  _wire->requestFrom(_i2caddr, 2);
 #if ARDUINO >= 100
-  t = Wire.read();
-  x = Wire.read();
+  t = _wire->read();
+  x = _wire->read();
 #else
-  t = Wire.receive();
-  x = Wire.receive();
+  t = _wire->receive();
+  x = _wire->receive();
 #endif
   x <<= 8;
   x |= t;
@@ -173,10 +173,49 @@ Adafruit_TCS34725::Adafruit_TCS34725(tcs34725IntegrationTime_t it,
 
 /*!
  *  @brief  Initializes I2C and configures the sensor
+ *  @param  addr
+ *          i2c address
+ *  @return True if initialization was successful, otherwise false.
+ */
+boolean Adafruit_TCS34725::begin(uint8_t addr) {
+  _i2caddr = addr;
+  _wire = &Wire;
+
+  return init();
+}
+
+/*!
+ *  @brief  Initializes I2C and configures the sensor
+ *  @param  addr
+ *          i2c address
+ *  @param  *theWire
+ *          The Wire object
+ *  @return True if initialization was successful, otherwise false.
+ */
+boolean Adafruit_TCS34725::begin(uint8_t addr, TwoWire *theWire) {
+  _i2caddr = addr;
+  _wire = theWire;
+
+  return init();
+}
+
+/*!
+ *  @brief  Initializes I2C and configures the sensor
  *  @return True if initialization was successful, otherwise false.
  */
 boolean Adafruit_TCS34725::begin() {
-  Wire.begin();
+  _i2caddr = TCS34725_ADDRESS;
+  _wire = &Wire;
+
+  return init();
+}
+
+/*!
+ *  @brief  Part of begin
+ *  @return True if initialization was successful, otherwise false.
+ */
+boolean Adafruit_TCS34725::init() {
+  _wire->begin();
 
   /* Make sure we're actually connected */
   uint8_t x = read8(TCS34725_ID);
@@ -538,13 +577,13 @@ void Adafruit_TCS34725::setInterrupt(boolean i) {
  *  @brief  Clears inerrupt for TCS34725
  */
 void Adafruit_TCS34725::clearInterrupt() {
-  Wire.beginTransmission(TCS34725_ADDRESS);
+  _wire->beginTransmission(_i2caddr);
 #if ARDUINO >= 100
-  Wire.write(TCS34725_COMMAND_BIT | 0x66);
+  _wire->write(TCS34725_COMMAND_BIT | 0x66);
 #else
-  Wire.send(TCS34725_COMMAND_BIT | 0x66);
+  _wire->send(TCS34725_COMMAND_BIT | 0x66);
 #endif
-  Wire.endTransmission();
+  _wire->endTransmission();
 }
 
 /*!

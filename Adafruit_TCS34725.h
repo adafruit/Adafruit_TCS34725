@@ -170,7 +170,11 @@ public:
   Adafruit_TCS34725(tcs34725IntegrationTime_t = TCS34725_INTEGRATIONTIME_2_4MS,
                     tcs34725Gain_t = TCS34725_GAIN_1X);
 
+  boolean begin(uint8_t addr, TwoWire *theWire);
+  boolean begin(uint8_t addr);
   boolean begin();
+  boolean init();
+
   void setIntegrationTime(tcs34725IntegrationTime_t it);
   void setGain(tcs34725Gain_t gain);
   void getRawData(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c);
@@ -190,6 +194,8 @@ public:
   void disable();
 
 private:
+  TwoWire *_wire;
+  uint8_t _i2caddr;
   boolean _tcs34725Initialised;
   tcs34725Gain_t _tcs34725Gain;
   tcs34725IntegrationTime_t _tcs34725IntegrationTime;
