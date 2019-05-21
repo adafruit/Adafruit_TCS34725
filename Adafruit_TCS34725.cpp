@@ -482,6 +482,10 @@ uint16_t Adafruit_TCS34725::calculateColorTemperature_dn40(uint16_t r,
   r2 = r - ir;
   b2 = b - ir;
 
+  if (r2 == 0) {
+    return 0;
+  }
+
   /* A simple method of measuring color temp is to use the ratio of blue */
   /* to red light, taking IR cancellation into account. */
   uint16_t cct = (3810 * (uint32_t)b2) / /** Color temp coefficient. */
