@@ -200,6 +200,14 @@ boolean Adafruit_TCS34725::begin(void)
   }
   _tcs34725Initialised = true;
 
+  /* Use default values from Fig. 4 in datasheet */
+  _tcs34725RedSensitivity = 76.5;
+  _tcs34725ClearRedReference = 1.38;
+  _tcs34725GreenSensitivity = 72.5;
+  _tcs34725ClearGreenReference = 1.66;
+  _tcs34725BlueSensitivity = 95;
+  _tcs34725ClearBlueReference = 1.95;
+
   /* Set default integration time and gain */
   setIntegrationTime(_tcs34725IntegrationTime);
   setGain(_tcs34725Gain);
@@ -244,6 +252,30 @@ void Adafruit_TCS34725::setGain(tcs34725Gain_t gain)
 
 /**************************************************************************/
 /*!
+    Sets the clear reference points for getting unit results
+*/
+/**************************************************************************/
+void Adafruit_TCS34725::setClearReference(uint16_t redReference, uint16_t greenReference, uint16_t blueReference)
+{
+  _tcs34725ClearRedReference = redReference;
+  _tcs34725ClearGreenReference = greenReference;
+  _tcs34725ClearBlueReference = blueReference;
+}
+
+/**************************************************************************/
+/*!
+    Sets the sensitivity points for getting unit results
+*/
+/**************************************************************************/
+void Adafruit_TCS34725::setSensitivity(uint16_t redSensitivity, uint16_t greenSensitivity, uint16_t blueSensitivity)
+{
+  _tcs34725RedSensitivity = redSensitivity;
+  _tcs34725GreenSensitivity = greenSensitivity;
+  _tcs34725BlueSensitivity = blueSensitivity;
+}
+
+/**************************************************************************/
+/*!
     @brief  Reads the raw red, green, blue and clear channel values
 */
 /**************************************************************************/
@@ -280,6 +312,7 @@ void Adafruit_TCS34725::getRawData (uint16_t *r, uint16_t *g, uint16_t *b, uint1
   }
 }
 
+
 /**************************************************************************/
 /*!
     @brief  Reads the raw red, green, blue and clear channel values in
@@ -293,6 +326,72 @@ void Adafruit_TCS34725::getRawDataOneShot (uint16_t *r, uint16_t *g, uint16_t *b
   enable();
   getRawData(r, g, b ,c);
   disable();
+}
+
+/**************************************************************************/
+/*!
+    @brief  Reads the raw red, green, blue and clear channel values with uw/cm^2 units
+*/
+/**************************************************************************/
+void Adafruit_TCS34725::getUnitDataOneShot (float *r, float *g, float *b, float *c)
+{
+  if (!_tcs34725Initialised) begin();
+
+  float    f_integration_multiple = 1;
+  uint16_t ui_gain_multiple = 1;
+  uint16_t ui_clearRaw, ui_redRaw, ui_greenRaw, ui_blueRaw;
+  getRawDataOneShot(&ui_redRaw, &ui_greenRaw, &ui_blueRaw, &ui_clearRaw);
+
+  /* Set a multiplier for the gain */
+  switch(_tcs34725Gain)
+  {
+    case TCS34725_GAIN_1X:
+      ui_gain_multiple = 1;
+      break;
+    case TCS34725_GAIN_4X:
+      ui_gain_multiple = 4;
+      break;
+    case TCS34725_GAIN_16X:
+      ui_gain_multiple = 16;
+      break;
+    case TCS34725_GAIN_60X:
+      ui_gain_multiple = 40;
+      break;
+  }
+  /* Set a multiplier for the integration time */
+  switch (_tcs34725IntegrationTime)
+  {
+    case TCS34725_INTEGRATIONTIME_2_4MS:
+      break;
+    case TCS34725_INTEGRATIONTIME_24MS:
+      f_integration_multiple = 24/2.4;
+      break;
+    case TCS34725_INTEGRATIONTIME_50MS:
+      f_integration_multiple = 50/2.4;
+      break;
+    case TCS34725_INTEGRATIONTIME_101MS:
+      f_integration_multiple = 101/2.4;
+      break;
+    case TCS34725_INTEGRATIONTIME_154MS:
+      f_integration_multiple = 154/2.4;
+      break;
+    case TCS34725_INTEGRATIONTIME_700MS:
+      f_integration_multiple = 700/2.4;
+      break;
+  }
+
+  /* Use sensitivity for each channel (e.g., ratio of respected channel with resepect to clear channel, these should fall within ranges in Fig. 4 from datasheed).
+    Use clear channel reference for the particular color (again should be in range from Fig. 4, BUT this will depend on the wavelength somewhat so we will assume a perfect match to the table)
+    Next, scale based on the gain and integration time
+    Finally, assume that clear channel is just the sum of the RGB channels since we used the sensitivity percentage scalar.
+    
+    This all should be calibrated or the values will be off since the range in the Fig. 4 table is quite large. The default values for sensitivity and reference are based on the 'typical'
+    values from Fig 4. */
+  *r = ui_redRaw / _tcs34725RedSensitivity  * _tcs34725ClearRedReference * f_integration_multiple * ui_gain_multiple;
+  *b = ui_blueRaw / _tcs34725BlueSensitivity  * _tcs34725ClearBlueReference * f_integration_multiple * ui_gain_multiple;
+  *g = ui_greenRaw / _tcs34725GreenSensitivity  * _tcs34725ClearGreenReference * f_integration_multiple * ui_gain_multiple;
+  *c = *r + *g + *b;
+
 }
 
 /**************************************************************************/

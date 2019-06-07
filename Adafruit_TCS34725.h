@@ -134,12 +134,20 @@ class Adafruit_TCS34725 {
   void setIntLimits(uint16_t l, uint16_t h);
   void     enable(void);
   void     disable(void);
+  void getUnitDataOneShot (float *r, float *g, float *b, float *c);
+  void setSensitivity(uint16_t redSensitivity, uint16_t greenSensitivity, uint16_t blueSensitivity);
+  void setClearReference(uint16_t redReference, uint16_t greenReference, uint16_t blueReference);
 
  private:
   boolean _tcs34725Initialised;
   tcs34725Gain_t _tcs34725Gain;
   tcs34725IntegrationTime_t _tcs34725IntegrationTime; 
-  
+  float _tcs34725RedSensitivity;
+  float _tcs34725ClearRedReference;
+  float _tcs34725GreenSensitivity;
+  float _tcs34725ClearGreenReference;
+  float _tcs34725BlueSensitivity;
+  float _tcs34725ClearBlueReference;
 };
 
 #endif
