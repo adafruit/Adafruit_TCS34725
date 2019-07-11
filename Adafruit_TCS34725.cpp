@@ -375,6 +375,10 @@ uint16_t Adafruit_TCS34725::calculateColorTemperature(uint16_t r, uint16_t g,
   float n;       /* McCamy's formula            */
   float cct;
 
+  if (r == 0 && g == 0 && b == 0) {
+    return 0;
+  }
+
   /* 1. Map RGB values to their XYZ counterparts.    */
   /* Based on 6500K fluorescent, 3000K fluorescent   */
   /* and 60W incandescent values for a wide range.   */
@@ -421,6 +425,10 @@ uint16_t Adafruit_TCS34725::calculateColorTemperature_dn40(uint16_t r,
   uint8_t gain_int;    /* Gain multiplier as a normal integer */
   uint16_t sat;        /* Digital saturation level */
   uint16_t ir;         /* Inferred IR content */
+
+  if (c == 0) {
+    return 0;
+  }
 
   /* Analog/Digital saturation:
    *
@@ -477,6 +485,10 @@ uint16_t Adafruit_TCS34725::calculateColorTemperature_dn40(uint16_t r,
   r2 = r - ir;
   g2 = g - ir;
   b2 = b - ir;
+
+  if (r2 == 0) {
+    return 0;
+  }
 
   /* Convert gain to a usable integer value */
   switch (_tcs34725Gain) {
