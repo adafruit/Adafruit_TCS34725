@@ -420,8 +420,8 @@ uint16_t Adafruit_TCS34725::calculateColorTemperature_dn40(uint16_t r,
                                                            uint16_t b,
                                                            uint16_t c) {
   uint16_t r2, b2; /* RGB values minus IR component */
-  uint16_t sat;        /* Digital saturation level */
-  uint16_t ir;         /* Inferred IR content */
+  uint16_t sat;    /* Digital saturation level */
+  uint16_t ir;     /* Inferred IR content */
 
   if (c == 0) {
     return 0;
