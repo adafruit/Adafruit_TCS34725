@@ -132,8 +132,8 @@ void Adafruit_TCS34725::enable() {
   case TCS34725_INTEGRATIONTIME_24MS:
     delay(24);
     break;
-  case TCS34725_INTEGRATIONTIME_50MS:
-    delay(50);
+  case TCS34725_INTEGRATIONTIME_48MS:
+    delay(48);
     break;
   case TCS34725_INTEGRATIONTIME_101MS:
     delay(101);
@@ -141,8 +141,8 @@ void Adafruit_TCS34725::enable() {
   case TCS34725_INTEGRATIONTIME_154MS:
     delay(154);
     break;
-  case TCS34725_INTEGRATIONTIME_700MS:
-    delay(700);
+  case TCS34725_INTEGRATIONTIME_615MS:
+    delay(615);
     break;
   }
 }
@@ -295,8 +295,8 @@ void Adafruit_TCS34725::getRawData(uint16_t *r, uint16_t *g, uint16_t *b,
   case TCS34725_INTEGRATIONTIME_24MS:
     delay(24);
     break;
-  case TCS34725_INTEGRATIONTIME_50MS:
-    delay(50);
+  case TCS34725_INTEGRATIONTIME_48MS:
+    delay(48);
     break;
   case TCS34725_INTEGRATIONTIME_101MS:
     delay(101);
@@ -304,8 +304,8 @@ void Adafruit_TCS34725::getRawData(uint16_t *r, uint16_t *g, uint16_t *b,
   case TCS34725_INTEGRATIONTIME_154MS:
     delay(154);
     break;
-  case TCS34725_INTEGRATIONTIME_700MS:
-    delay(700);
+  case TCS34725_INTEGRATIONTIME_615MS:
+    delay(615);
     break;
   }
 }
