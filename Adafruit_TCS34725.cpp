@@ -125,26 +125,8 @@ void Adafruit_TCS34725::enable() {
     AEN triggers an automatic integration, so if a read RGBC is
     performed too quickly, the data is not yet valid and all 0's are
     returned */
-  switch (_tcs34725IntegrationTime) {
-  case TCS34725_INTEGRATIONTIME_2_4MS:
-    delay(3);
-    break;
-  case TCS34725_INTEGRATIONTIME_24MS:
-    delay(24);
-    break;
-  case TCS34725_INTEGRATIONTIME_48MS:
-    delay(48);
-    break;
-  case TCS34725_INTEGRATIONTIME_101MS:
-    delay(101);
-    break;
-  case TCS34725_INTEGRATIONTIME_154MS:
-    delay(154);
-    break;
-  case TCS34725_INTEGRATIONTIME_615MS:
-    delay(615);
-    break;
-  }
+  /* 12/5 = 2.4, add 1 to account for integer truncation */
+  delay((256 - _tcs34725IntegrationTime) * 12 / 5 + 1);
 }
 
 /*!
@@ -288,26 +270,8 @@ void Adafruit_TCS34725::getRawData(uint16_t *r, uint16_t *g, uint16_t *b,
   *b = read16(TCS34725_BDATAL);
 
   /* Set a delay for the integration time */
-  switch (_tcs34725IntegrationTime) {
-  case TCS34725_INTEGRATIONTIME_2_4MS:
-    delay(3);
-    break;
-  case TCS34725_INTEGRATIONTIME_24MS:
-    delay(24);
-    break;
-  case TCS34725_INTEGRATIONTIME_48MS:
-    delay(48);
-    break;
-  case TCS34725_INTEGRATIONTIME_101MS:
-    delay(101);
-    break;
-  case TCS34725_INTEGRATIONTIME_154MS:
-    delay(154);
-    break;
-  case TCS34725_INTEGRATIONTIME_615MS:
-    delay(615);
-    break;
-  }
+  /* 12/5 = 2.4, add 1 to account for integer truncation */
+  delay((256 - _tcs34725IntegrationTime) * 12 / 5 + 1);
 }
 
 /*!
