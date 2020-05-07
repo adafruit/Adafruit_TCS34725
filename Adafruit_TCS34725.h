@@ -138,24 +138,14 @@
 #define TCS34725_BDATAH (0x1B) /**< Blue channel data high byte */
 
 /** Integration time settings for TCS34725 */
-typedef enum {
-  TCS34725_INTEGRATIONTIME_2_4MS =
-      0xFF, /**<  2.4ms - 1 cycle    - Max Count: 1024  */
-  TCS34725_INTEGRATIONTIME_24MS =
-      0xF6, /**<  24ms  - 10 cycles  - Max Count: 10240 */
-  TCS34725_INTEGRATIONTIME_48MS =
-      0xEB, /**<  48ms  - 20 cycles  - Max Count: 20480 */
-  TCS34725_INTEGRATIONTIME_50MS =
-      0xEB, /**<  WRONG BUT INCLUDED FOR LEGACY CODE */
-  TCS34725_INTEGRATIONTIME_101MS =
-      0xD5, /**<  100.8ms - 42 cycles  - Max Count: 43008 */
-  TCS34725_INTEGRATIONTIME_154MS =
-      0xC0, /**<  153.6ms - 64 cycles  - Max Count: 65535 */
-  TCS34725_INTEGRATIONTIME_615MS =
-      0x00, /**<  614.4ms - 256 cycles - Max Count: 65535 */
-  TCS34725_INTEGRATIONTIME_700MS =
-      0x00 /**<  WRONG BUT INCLUDED FOR LEGACY CODE */
-} tcs34725IntegrationTime_t;
+#define TCS34725_INTEGRATIONTIME_2_4MS (0xFF)/* 2.4ms - 1 cycle - Max Count: 1024 */
+#define TCS34725_INTEGRATIONTIME_24MS (0xF6) /* 24ms - 10 cycles - Max Count: 10240 */
+#define TCS34725_INTEGRATIONTIME_48MS (0xEB) /* 48ms - 20 cycles - Max Count: 20480 */
+#define TCS34725_INTEGRATIONTIME_50MS (0xEB) /* WRONG BUT INCLUDED FOR LEGACY CODE */
+#define TCS34725_INTEGRATIONTIME_101MS (0xD5)/* 100.8ms - 42 cycles - Max Count: 43008 */
+#define TCS34725_INTEGRATIONTIME_154MS (0xC0)/* 153.6ms - 64 cycles - Max Count: 65535 */
+#define TCS34725_INTEGRATIONTIME_615MS (0x00)/* 614.4ms - 256 cycles - Max Count: 65535 */
+#define TCS34725_INTEGRATIONTIME_700MS (0x00)/* WRONG BUT INCLUDED FOR LEGACY CODE */
 
 /** Gain settings for TCS34725  */
 typedef enum {
@@ -171,7 +161,7 @@ typedef enum {
  */
 class Adafruit_TCS34725 {
 public:
-  Adafruit_TCS34725(tcs34725IntegrationTime_t = TCS34725_INTEGRATIONTIME_2_4MS,
+  Adafruit_TCS34725(uint8_t = TCS34725_INTEGRATIONTIME_2_4MS,
                     tcs34725Gain_t = TCS34725_GAIN_1X);
 
   boolean begin(uint8_t addr, TwoWire *theWire);
@@ -179,7 +169,7 @@ public:
   boolean begin();
   boolean init();
 
-  void setIntegrationTime(tcs34725IntegrationTime_t it);
+  void setIntegrationTime(uint8_t it);
   void setGain(tcs34725Gain_t gain);
   void getRawData(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c);
   void getRGB(float *r, float *g, float *b);
@@ -202,7 +192,7 @@ private:
   uint8_t _i2caddr;
   boolean _tcs34725Initialised;
   tcs34725Gain_t _tcs34725Gain;
-  tcs34725IntegrationTime_t _tcs34725IntegrationTime;
+  uint8_t _tcs34725IntegrationTime;
 };
 
 #endif
