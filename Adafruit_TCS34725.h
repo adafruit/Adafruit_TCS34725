@@ -138,14 +138,45 @@
 #define TCS34725_BDATAH (0x1B) /**< Blue channel data high byte */
 
 /** Integration time settings for TCS34725 */
+/* 100ms is evenly divisible by 50Hz periods and by 60Hz periods */
+// hex FF   cycles   1   integ 2.40   60Hz cycles 0.14   50Hz cycles 0.12
 #define TCS34725_INTEGRATIONTIME_2_4MS (0xFF)/* 2.4ms - 1 cycle - Max Count: 1024 */
+// hex F6   cycles  10   integ 24.00   60Hz cycles 1.44   50Hz cycles 1.20
 #define TCS34725_INTEGRATIONTIME_24MS (0xF6) /* 24ms - 10 cycles - Max Count: 10240 */
-#define TCS34725_INTEGRATIONTIME_48MS (0xEB) /* 48ms - 20 cycles - Max Count: 20480 */
-#define TCS34725_INTEGRATIONTIME_50MS (0xEB) /* WRONG BUT INCLUDED FOR LEGACY CODE */
-#define TCS34725_INTEGRATIONTIME_101MS (0xD5)/* 100.8ms - 42 cycles - Max Count: 43008 */
+// hex EB   cycles  21   integ 50.40   60Hz cycles 3.02   50Hz cycles 2.52
+#define TCS34725_INTEGRATIONTIME_50MS (0xEB) /* 50.4ms - 21 cycles - Max Count: ???? */
+// hex E7   cycles  25   integ 60.00   60Hz cycles 3.60   50Hz cycles 3.00
+#define TCS34725_INTEGRATIONTIME_60MS (0xE7)
+// hex D6   cycles  42   integ 100.80   60Hz cycles 6.05   50Hz cycles 5.04
+#define TCS34725_INTEGRATIONTIME_101MS (0xD6)/* 100.8ms - 42 cycles - Max Count: 43008 */
+// hex CE   cycles  50   integ 120.00   60Hz cycles 7.20   50Hz cycles 6.00
+#define TCS34725_INTEGRATIONTIME_120MS (0xCE)
+// hex C0   cycles  64   integ 153.60   60Hz cycles 9.22   50Hz cycles 7.68
 #define TCS34725_INTEGRATIONTIME_154MS (0xC0)/* 153.6ms - 64 cycles - Max Count: 65535 */
-#define TCS34725_INTEGRATIONTIME_615MS (0x00)/* 614.4ms - 256 cycles - Max Count: 65535 */
-#define TCS34725_INTEGRATIONTIME_700MS (0x00)/* WRONG BUT INCLUDED FOR LEGACY CODE */
+// hex B5   cycles  75   integ 180.00   60Hz cycles 10.80   50Hz cycles 9.00
+#define TCS34725_INTEGRATIONTIME_180MS (0xB5)
+// hex AD   cycles  83   integ 199.20   60Hz cycles 11.95   50Hz cycles 9.96
+#define TCS34725_INTEGRATIONTIME_154MS (0xAD)
+// hex 9C   cycles 100   integ 240.00   60Hz cycles 14.40   50Hz cycles 12.00
+#define TCS34725_INTEGRATIONTIME_240MS (0x9C)
+// hex 83   cycles 125   integ 300.00   60Hz cycles 18.00   50Hz cycles 15.00
+#define TCS34725_INTEGRATIONTIME_300MS (0x83)/* 300ms - 125 cycles - Max Count: 65535 */
+// hex 6A   cycles 150   integ 360.00   60Hz cycles 21.60   50Hz cycles 18.00
+#define TCS34725_INTEGRATIONTIME_360MS (0x6A)
+// hex 59   cycles 167   integ 400.80   60Hz cycles 24.05   50Hz cycles 20.04
+#define TCS34725_INTEGRATIONTIME_401MS (0x59)
+// hex 51   cycles 175   integ 420.00   60Hz cycles 25.20   50Hz cycles 21.00
+#define TCS34725_INTEGRATIONTIME_420MS (0x51)
+// hex 38   cycles 200   integ 480.00   60Hz cycles 28.80   50Hz cycles 24.00
+#define TCS34725_INTEGRATIONTIME_480MS (0x38)
+// hex 30   cycles 208   integ 499.20   60Hz cycles 29.95   50Hz cycles 24.96
+#define TCS34725_INTEGRATIONTIME_499MS (0x30)
+// hex 1F   cycles 225   integ 540.00   60Hz cycles 32.40   50Hz cycles 27.00
+#define TCS34725_INTEGRATIONTIME_540MS (0x1F)
+// hex 06   cycles 250   integ 600.00   60Hz cycles 36.00   50Hz cycles 30.00
+#define TCS34725_INTEGRATIONTIME_600MS (0x06)
+// hex 00   cycles 256   integ 614.40   60Hz cycles 36.86   50Hz cycles 30.72
+#define TCS34725_INTEGRATIONTIME_614MS (0x00)/* 614.4ms - 256 cycles - Max Count: 65535 */
 
 /** Gain settings for TCS34725  */
 typedef enum {
