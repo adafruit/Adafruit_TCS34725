@@ -163,20 +163,20 @@
 #define TCS34725_INTEGRATIONTIME_300MS (0x83)
 // 360.0ms - 150 cycles - Max Count: 65535 - 60Hz cycles 21.6 - 50Hz cycles 18.0
 #define TCS34725_INTEGRATIONTIME_360MS (0x6A)
-// 400.8ms - 167 cycles - Max Count: 65535 - 60Hz cycles 24.1 - 50Hz cycles 20.0
-#define TCS34725_INTEGRATIONTIME_401MS (0x59)
-// 420.0ms - 175 cycles - Max Count: 65535 - 60Hz cycles 25.2 - 50Hz cycles 21.0
-#define TCS34725_INTEGRATIONTIME_420MS (0x51)
-// 480.0ms - 200 cycles - Max Count: 65535 - 60Hz cycles 28.8 - 50Hz cycles 24.0
-#define TCS34725_INTEGRATIONTIME_480MS (0x38)
-// 499.2ms - 208 cycles - Max Count: 65535 - 60Hz cycles 30.0   50Hz cycles 25.0
-#define TCS34725_INTEGRATIONTIME_499MS (0x30)
-// 540.0ms - 225 cycles - Max Count: 65535 - 60Hz cycles 32.4   50Hz cycles 27.0
-#define TCS34725_INTEGRATIONTIME_540MS (0x1F)
-// 600.0ms - 250 cycles - Max Count: 65535 - 60Hz cycles 36.0 - 50Hz cycles 30.0
-#define TCS34725_INTEGRATIONTIME_600MS (0x06)
-/**< 614.4ms - 256 cycles - Max Count: 65535 */
-#define TCS34725_INTEGRATIONTIME_614MS (0x00)
+#define TCS34725_INTEGRATIONTIME_401MS
+  (0x59) /**< 400.8ms - 167 cycles - Max Count: 65535 */
+#define TCS34725_INTEGRATIONTIME_420MS
+  (0x51) /**< 420.0ms - 175 cycles - Max Count: 65535 */
+#define TCS34725_INTEGRATIONTIME_480MS
+  (0x38) /**< 480.0ms - 200 cycles - Max Count: 65535 */
+#define TCS34725_INTEGRATIONTIME_499MS
+  (0x30) /**< 499.2ms - 208 cycles - Max Count: 65535 */
+#define TCS34725_INTEGRATIONTIME_540MS
+  (0x1F) /**< 540.0ms - 225 cycles - Max Count: 65535 */
+#define TCS34725_INTEGRATIONTIME_600MS
+  (0x06) /**< 600.0ms - 250 cycles - Max Count: 65535 */
+#define TCS34725_INTEGRATIONTIME_614MS
+  (0x00) /**< 614.4ms - 256 cycles - Max Count: 65535 */
 
 /** Gain settings for TCS34725  */
 typedef enum {
