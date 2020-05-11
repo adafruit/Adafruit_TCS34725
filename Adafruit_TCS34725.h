@@ -175,7 +175,7 @@
 #define TCS34725_INTEGRATIONTIME_540MS (0x1F)
 // 600.0ms - 250 cycles - Max Count: 65535 - 60Hz cycles 36.0 - 50Hz cycles 30.0
 #define TCS34725_INTEGRATIONTIME_600MS (0x06)
-// 614.4ms - 256 cycles - Max Count: 65535 - 60Hz cycles 36.9 - 50Hz cycles 30.7
+/**< 614.4ms - 256 cycles - Max Count: 65535 - 60Hz cycles 36.9 - 50Hz cycles 30.7 */
 #define TCS34725_INTEGRATIONTIME_614MS (0x00)
 
 /** Gain settings for TCS34725  */
