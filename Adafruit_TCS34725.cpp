@@ -132,6 +132,17 @@ void Adafruit_TCS34725::disable() {
 }
 
 /*!
+ *  @brief  Briefly disable integration to activate new settings
+ */
+void Adafruit_TCS34725::reset() {
+  uint8_t reg = 0;
+  reg = read8(TCS34725_ENABLE);
+  write8(TCS34725_ENABLE, reg & ~(TCS34725_ENABLE_AEN));
+  delay(3);
+  write8(TCS34725_ENABLE, reg);
+}
+
+/*!
  *  @brief  Constructor
  *  @param  it
  *          Integration Time
@@ -214,7 +225,7 @@ boolean Adafruit_TCS34725::init() {
  *          Desired integration time in seconds
  *  @return Actual integration time in seconds
  */
-void Adafruit_TCS34725::setIntegrationTimeMsec(float it_sec) {
+float Adafruit_TCS34725::setIntegrationTimeMsec(float it_sec) {
   if (!_tcs34725Initialised)
     begin();
 
@@ -236,6 +247,11 @@ void Adafruit_TCS34725::setIntegrationTime(uint8_t it) {
   /* Update the timing register */
   write8(TCS34725_ATIME, it);
 
+  /* Restart integration so we don't have to wait for the previous
+   * integration to finish.
+   */
+  reset();
+
   /* Update value placeholders */
   _tcs34725IntegrationTime = it;
 }
@@ -246,7 +262,7 @@ void Adafruit_TCS34725::setIntegrationTime(uint8_t it) {
  *          Integration Time
  */
 void Adafruit_TCS34725::setIntegrationTime(tcs34725IntegrationTime_t it) {
-    setIntegrationTime((uint_8)it);
+    setIntegrationTime((uint8_t)it);
 }
 
 /*!
@@ -260,6 +276,11 @@ void Adafruit_TCS34725::setGain(tcs34725Gain_t gain) {
 
   /* Update the timing register */
   write8(TCS34725_CONTROL, gain);
+
+  /* Restart integration so we don't have to wait for the previous
+   * integration to finish.
+   */
+  reset();
 
   /* Update value placeholders */
   _tcs34725Gain = gain;
@@ -275,15 +296,18 @@ void Adafruit_TCS34725::setGain(tcs34725Gain_t gain) {
  *          Blue value
  *  @param  *c
  *          Clear channel value
+ *  @param  wait
+ *          If true, delay before reading to ensure integration has completed
  */
 void Adafruit_TCS34725::getRawData(uint16_t *r, uint16_t *g, uint16_t *b,
-                                   uint16_t *c, bool delay=true) {
+                                   uint16_t *c, bool wait=true) {
+
   if (!_tcs34725Initialised)
     begin();
 
-  if( delay ) {
-    float int_time = calculateIntegrationTime(_tcs34725IntegrationTime);
-    delay(int_time);
+  if( wait ) {
+    float int_time_ms = calculateIntegrationTime(_tcs34725IntegrationTime);
+    delay(int_time_ms + 4);
   }
 
   *c = read16(TCS34725_CDATAL);
@@ -504,7 +528,7 @@ uint16_t Adafruit_TCS34725::calculateLux(uint16_t r, uint16_t g, uint16_t b) {
  *  @return ATIME value
  */
 uint8_t Adafruit_TCS34725::calculateIntegrationConstant(float it_msec) {
-  int atime = 256 - it_msec / 2.4;
+  int atime = 258.59 - it_msec / 2.475;
   atime = atime < 0 ? 0 : atime;
   atime = atime > 255 ? 255 : atime;
   return (uint8_t) atime;
@@ -516,8 +540,10 @@ uint8_t Adafruit_TCS34725::calculateIntegrationConstant(float it_msec) {
  *          ATIME value
  *  @return Integration time in milliseconds
  */
-float Adafruit_TCS34725::calculateIntegrationTime(uint8_t it) {
-  return 2.4 * (256 - atime);  /* equation according to datasheet */
+float Adafruit_TCS34725::calculateIntegrationTime(uint8_t atime) {
+  /* equation according to datasheet is 2.4 * (256 - atime), but that seems to be inaccurate
+   */
+  return 2.475 * (258.59 - atime);
 }
 
 /*!
