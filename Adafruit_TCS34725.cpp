@@ -222,17 +222,17 @@ boolean Adafruit_TCS34725::init() {
 /*!
  *  @brief  Sets the integration time for the TC34725
  *  @param  it_sec
- *          Desired integration time in seconds
- *  @return Actual integration time in seconds
+ *          Desired integration time in milliseconds
+ *  @return Actual integration time in milliseconds
  */
-float Adafruit_TCS34725::setIntegrationTimeMsec(float it_sec) {
+float Adafruit_TCS34725::setIntegrationTimeMsec(float it_msec) {
   if (!_tcs34725Initialised)
     begin();
 
-  tcs34725IntegrationTime_t atime = calculateIntegrationConstant(it_sec);
+  tcs34725IntegrationTime_t atime = calculateIntegrationConstant(it_msec);
   setIntegrationTime(atime);
-  float actual_it_sec = calculateIntegrationTime(atime);
-  return actual_it_sec;
+  float actual_it_msec = calculateIntegrationTime(atime);
+  return actual_it_msec;
 }
 
 /*!
@@ -314,6 +314,14 @@ void Adafruit_TCS34725::getRawData(uint16_t *r, uint16_t *g, uint16_t *b,
   *r = read16(TCS34725_RDATAL);
   *g = read16(TCS34725_GDATAL);
   *b = read16(TCS34725_BDATAL);
+}
+
+/*!
+ *  @brief  Returns the maximum value that could be reported by getRawData,
+ *          given the currently set integration time
+ */
+uint16_t Adafruit_TCS34725::getRawDataMax() {
+    return ((int)256 - (int)_tcs34725IntegrationTime) * 1024;
 }
 
 /*!
