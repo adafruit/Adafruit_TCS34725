@@ -321,7 +321,9 @@ void Adafruit_TCS34725::getRawData(uint16_t *r, uint16_t *g, uint16_t *b,
  *          given the currently set integration time
  */
 uint16_t Adafruit_TCS34725::getRawDataMax() {
-    return ((int)256 - (int)_tcs34725IntegrationTime) * 1024;
+    long mx = ((long)256 - (long)_tcs34725IntegrationTime) * 1024;
+    mx = mx > 65535 ? 65535 : mx;
+    return (uint16_t) mx;
 }
 
 /*!
