@@ -175,15 +175,20 @@ public:
   boolean begin();
   boolean init();
 
+  float setIntegrationTimeMsec(float it_msec);
+  void setIntegrationTime(uint8_t it);
   void setIntegrationTime(tcs34725IntegrationTime_t it);
   void setGain(tcs34725Gain_t gain);
-  void getRawData(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c);
+  void getRawData(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c, bool wait=true);
+  uint16_t getRawDataMax();
   void getRGB(float *r, float *g, float *b);
   void getRawDataOneShot(uint16_t *r, uint16_t *g, uint16_t *b, uint16_t *c);
   uint16_t calculateColorTemperature(uint16_t r, uint16_t g, uint16_t b);
   uint16_t calculateColorTemperature_dn40(uint16_t r, uint16_t g, uint16_t b,
                                           uint16_t c);
   uint16_t calculateLux(uint16_t r, uint16_t g, uint16_t b);
+  uint8_t calculateIntegrationConstant(float it_msec);
+  float calculateIntegrationTime(uint8_t atime);
   void write8(uint8_t reg, uint32_t value);
   uint8_t read8(uint8_t reg);
   uint16_t read16(uint8_t reg);
@@ -192,13 +197,14 @@ public:
   void setIntLimits(uint16_t l, uint16_t h);
   void enable();
   void disable();
+  void reset();
 
 private:
   TwoWire *_wire;
   uint8_t _i2caddr;
   boolean _tcs34725Initialised;
   tcs34725Gain_t _tcs34725Gain;
-  tcs34725IntegrationTime_t _tcs34725IntegrationTime;
+  uint8_t _tcs34725IntegrationTime;
 };
 
 #endif
