@@ -516,7 +516,7 @@ uint16_t Adafruit_TCS34725::calculateLux(uint16_t r, uint16_t g, uint16_t b) {
 }
 
 /*!
- *  @brief  Sets inerrupt for TCS34725
+ *  @brief  Sets interrupt for TCS34725
  *  @param  i
  *          Interrupt (True/False)
  */
