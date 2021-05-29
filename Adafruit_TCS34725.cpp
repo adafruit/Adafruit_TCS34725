@@ -219,7 +219,7 @@ boolean Adafruit_TCS34725::init() {
 
   /* Make sure we're actually connected */
   uint8_t x = read8(TCS34725_ID);
-  if ((x != 0x44) && (x != 0x10)) {
+  if ((x != 0x4d) && (x != 0x44) && (x != 0x10)) {
     return false;
   }
   _tcs34725Initialised = true;
