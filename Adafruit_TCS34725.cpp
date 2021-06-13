@@ -125,26 +125,8 @@ void Adafruit_TCS34725::enable() {
     AEN triggers an automatic integration, so if a read RGBC is
     performed too quickly, the data is not yet valid and all 0's are
     returned */
-  switch (_tcs34725IntegrationTime) {
-  case TCS34725_INTEGRATIONTIME_2_4MS:
-    delay(3);
-    break;
-  case TCS34725_INTEGRATIONTIME_24MS:
-    delay(24);
-    break;
-  case TCS34725_INTEGRATIONTIME_50MS:
-    delay(50);
-    break;
-  case TCS34725_INTEGRATIONTIME_101MS:
-    delay(101);
-    break;
-  case TCS34725_INTEGRATIONTIME_154MS:
-    delay(154);
-    break;
-  case TCS34725_INTEGRATIONTIME_700MS:
-    delay(700);
-    break;
-  }
+  /* 12/5 = 2.4, add 1 to account for integer truncation */
+  delay((256 - _tcs34725IntegrationTime) * 12 / 5 + 1);
 }
 
 /*!
@@ -164,8 +146,7 @@ void Adafruit_TCS34725::disable() {
  *  @param  gain
  *          Gain
  */
-Adafruit_TCS34725::Adafruit_TCS34725(tcs34725IntegrationTime_t it,
-                                     tcs34725Gain_t gain) {
+Adafruit_TCS34725::Adafruit_TCS34725(uint8_t it, tcs34725Gain_t gain) {
   _tcs34725Initialised = false;
   _tcs34725IntegrationTime = it;
   _tcs34725Gain = gain;
@@ -239,7 +220,7 @@ boolean Adafruit_TCS34725::init() {
  *  @param  it
  *          Integration Time
  */
-void Adafruit_TCS34725::setIntegrationTime(tcs34725IntegrationTime_t it) {
+void Adafruit_TCS34725::setIntegrationTime(uint8_t it) {
   if (!_tcs34725Initialised)
     begin();
 
@@ -288,26 +269,8 @@ void Adafruit_TCS34725::getRawData(uint16_t *r, uint16_t *g, uint16_t *b,
   *b = read16(TCS34725_BDATAL);
 
   /* Set a delay for the integration time */
-  switch (_tcs34725IntegrationTime) {
-  case TCS34725_INTEGRATIONTIME_2_4MS:
-    delay(3);
-    break;
-  case TCS34725_INTEGRATIONTIME_24MS:
-    delay(24);
-    break;
-  case TCS34725_INTEGRATIONTIME_50MS:
-    delay(50);
-    break;
-  case TCS34725_INTEGRATIONTIME_101MS:
-    delay(101);
-    break;
-  case TCS34725_INTEGRATIONTIME_154MS:
-    delay(154);
-    break;
-  case TCS34725_INTEGRATIONTIME_700MS:
-    delay(700);
-    break;
-  }
+  /* 12/5 = 2.4, add 1 to account for integer truncation */
+  delay((256 - _tcs34725IntegrationTime) * 12 / 5 + 1);
 }
 
 /*!
