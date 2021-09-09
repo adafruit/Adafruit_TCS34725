@@ -39,7 +39,7 @@
 #include <WProgram.h>
 #endif
 
-#include <Wire.h>
+#include <Adafruit_I2CDevice.h>
 
 #define TCS34725_ADDRESS (0x29)     /**< I2C address **/
 #define TCS34725_COMMAND_BIT (0x80) /**< Command bit **/
@@ -198,9 +198,7 @@ public:
   Adafruit_TCS34725(uint8_t = TCS34725_INTEGRATIONTIME_2_4MS,
                     tcs34725Gain_t = TCS34725_GAIN_1X);
 
-  boolean begin(uint8_t addr, TwoWire *theWire);
-  boolean begin(uint8_t addr);
-  boolean begin();
+  boolean begin(uint8_t addr = TCS34725_ADDRESS, TwoWire *theWire = &Wire);
   boolean init();
 
   void setIntegrationTime(uint8_t it);
@@ -222,8 +220,7 @@ public:
   void disable();
 
 private:
-  TwoWire *_wire;
-  uint8_t _i2caddr;
+  Adafruit_I2CDevice *i2c_dev = NULL; ///< Pointer to I2C bus interface
   boolean _tcs34725Initialised;
   tcs34725Gain_t _tcs34725Gain;
   uint8_t _tcs34725IntegrationTime;
