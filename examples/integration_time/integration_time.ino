@@ -28,7 +28,7 @@ void setup(void) {
 }
 
 void loop(void) {
-  uint16_t r, g, b, c, colorTemp, lux;
+  uint16_t r, g, b, c;
 
   tcs.setIntegrationTime(TCS34725_INTEGRATIONTIME_614MS);
   delay(154); // Delay for one old integ. time period (to finish old reading)

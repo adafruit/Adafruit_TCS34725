@@ -48,8 +48,8 @@ float powf(const float x, const float y) {
  *  @param  reg
  *  @param  value
  */
-void Adafruit_TCS34725::write8(uint8_t reg, uint32_t value) {
-  uint8_t buffer[2] = {TCS34725_COMMAND_BIT | reg, value & 0xFF};
+void Adafruit_TCS34725::write8(uint8_t reg, uint8_t value) {
+  uint8_t buffer[2] = {(uint8_t)TCS34725_COMMAND_BIT | reg, value};
   i2c_dev->write(buffer, 2);
 }
 
@@ -70,7 +70,7 @@ uint8_t Adafruit_TCS34725::read8(uint8_t reg) {
  *  @return value
  */
 uint16_t Adafruit_TCS34725::read16(uint8_t reg) {
-  uint8_t buffer[2] = {TCS34725_COMMAND_BIT | reg, 0};
+  uint8_t buffer[2] = {(uint8_t)TCS34725_COMMAND_BIT | reg, 0};
   i2c_dev->write_then_read(buffer, 1, buffer, 2);
   return (uint16_t(buffer[1]) << 8) | (uint16_t(buffer[0]) & 0xFF);
 }
